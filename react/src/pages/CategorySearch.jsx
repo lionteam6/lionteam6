@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "../components/Header";
 import orange from "../assets/orange.png";
 
+
 const CategorySearch = () => {
   const [keyword, setKeyword] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("품목명");
