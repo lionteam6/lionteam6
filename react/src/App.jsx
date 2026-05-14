@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -12,9 +12,12 @@ import Notification from "./pages/Notification";
 import CategoryList from "./pages/CategoryList";
 import GroupBuyDetail from "./pages/GroupBuyDetail";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -28,7 +31,12 @@ function App() {
         <Route path="/category/:categoryName" element={<CategoryList />} />
         <Route path="/groupbuy/:id" element={<GroupBuyDetail />} />
       </Routes>
-    </BrowserRouter>
+
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+      />
+    </>
   );
 }
 
