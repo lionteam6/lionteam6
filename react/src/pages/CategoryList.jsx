@@ -1,37 +1,38 @@
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
+import { getCategoryPosts } from "../apis/post";
 
 const CategoryList = () => {
   const { categoryName } = useParams();
   const navigate = useNavigate();
 
-  const items = [
-    {
-      id: 1,
-      title: "쎈 수학 내신자료 공구",
-      category: "공부자료",
-      writer: "준형님",
-      date: "2026.03.26",
-    },
-    {
-      id: 2,
-      title: "제주 감귤 5kg 공동구매",
-      category: "식품",
-      writer: "준형님",
-      date: "2026.03.26",
-    },
-    {
-      id: 3,
-      title: "디아스 생활용품 박스",
-      category: "생필품",
-      writer: "준형님",
-      date: "2026.03.26",
-    },
-  ];
+  const [items, setItems] = useState([]);
 
-  const filteredItems = items.filter(
-    (item) => item.category === categoryName
-  );
+  const categoryMap = {
+    식품: "food",
+    생필품: "daily",
+    공부자료: "study",
+    기타: "etc",
+  };
+
+  useEffect(() => {
+    const fetchCategoryPosts = async () => {
+      try {
+        const categoryValue = categoryMap[categoryName] || categoryName;
+
+        const data = await getCategoryPosts(categoryValue);
+
+        console.log("카테고리 조회:", data);
+
+        setItems(data);
+      } catch (error) {
+        console.error("카테고리 조회 실패:", error);
+      }
+    };
+
+    fetchCategoryPosts();
+  }, [categoryName]);
 
   return (
     <main className="min-h-screen bg-[#F0F7F5] flex justify-center">
@@ -62,24 +63,34 @@ const CategoryList = () => {
           </nav>
 
           <section>
-            {filteredItems.map((item) => (
-              <article
-                key={item.id}
-                onClick={() => navigate(`/groupbuy/${item.id}`)}
-                className="py-5 border-b border-[#F4F4F4]"
-              >
-                <h3 className="text-[14px] font-bold">
-                  {item.title}
-                </h3>
+            {items.length > 0 ? (
+              items.map((item) => (
+                <article
+                  key={item.id}
+                  onClick={() => navigate(`/group-buy/${item.id}`)}
+                  className="py-5 border-b border-[#F4F4F4] cursor-pointer"
+                >
+                  <h3 className="text-[14px] font-bold">
+                    {item.title}
+                  </h3>
 
-                <div className="flex justify-between mt-4 text-[12px] text-gray-500">
-                  <span className="text-[#02D384]">
-                    ◎ {item.writer}
-                  </span>
-                  <span>{item.date}</span>
-                </div>
-              </article>
-            ))}
+                  <p className="text-[12px] text-gray-500 mt-2">
+                    {item.content}
+                  </p>
+
+                  <div className="flex justify-between mt-4 text-[12px] text-gray-500">
+                    <span className="text-[#02D384]">
+                      ◎ 작성자 {item.author}
+                    </span>
+                    <span>{item.deadline}</span>
+                  </div>
+                </article>
+              ))
+            ) : (
+              <div className="py-20 text-center text-gray-400 text-[13px]">
+                해당 카테고리의 공구가 없습니다.
+              </div>
+            )}
           </section>
         </main>
       </section>

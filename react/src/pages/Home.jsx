@@ -8,10 +8,14 @@ import 생필품 from "../assets/생필품.png";
 import 식품 from "../assets/식품.png";
 import 인기품목 from "../assets/인기품목.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState} from "react";
+import axios from "axios";
+
+
 
 const Home = () => {
   const navigate = useNavigate();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const categories = [
     { id: 1, name: "공부자료", image: 공부자료 },
     { id: 2, name: "식품", image: 식품 },
@@ -21,6 +25,7 @@ const Home = () => {
   ];
 
   return (
+    
     <main className="min-h-screen bg-[#F0F7F5] flex justify-center">
       <section className="w-[375px] min-h-screen bg-white overflow-hidden">
         <Header />
@@ -76,10 +81,50 @@ const Home = () => {
               className="w-full h-[260px] object-cover"
             />
 
-            <button className="absolute bottom-5 right-5 w-[56px] h-[56px] rounded-full bg-[#02D384] text-white text-3xl">
-              +
-            </button>
+           <button
+  onClick={() => setIsModalOpen(true)}
+  className="absolute bottom-5 right-5 w-[56px] h-[56px] rounded-full bg-[#02D384] text-white text-3xl"
+>
+  +
+</button>
           </div>
+          {isModalOpen && (
+  <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="w-[280px] bg-white rounded-2xl px-6 py-5 text-center">
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="absolute ml-[235px] mt-[-5px] text-[18px] font-bold"
+      >
+        ×
+      </button>
+
+      <h3 className="text-[15px] font-bold mb-3">공동구매 등록</h3>
+
+      <p className="text-[12px] text-gray-400 mb-5">
+        공동구매를 등록하시겠습니까?
+      </p>
+
+      <div className="flex gap-3">
+        <button
+          onClick={() => setIsModalOpen(false)}
+          className="flex-1 h-[40px] bg-gray-100 rounded-lg text-[12px]"
+        >
+          아니오
+        </button>
+
+     <button
+  onClick={() => {
+    setIsModalOpen(false);
+    navigate("/groupbuy");
+  }}
+  className="flex-1 h-[40px] bg-[#02D384] text-white rounded-lg text-[12px]"
+>
+  예
+</button>
+      </div>
+    </div>
+  </div>
+)}
         </section>
       </section>
     </main>
