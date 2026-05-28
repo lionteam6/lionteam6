@@ -5,7 +5,7 @@ import logo from "../assets/logo.png";
 import bell from "../assets/notifications.svg";
 import search from "../assets/search.svg";
 
-import { useAuthStore } from "../store/seAuthStore";
+import { useAuthStore } from "../store/setAuthStore";
 
 import { toast } from "react-toastify";
 
