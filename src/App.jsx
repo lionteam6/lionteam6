@@ -23,7 +23,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/groupbuy" element={<GroupBuy />} />
+        
+       <Route path="/groupbuy" element={<GroupBuy />} />
+        
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/community" element={<Community />} />
         <Route path="/search" element={<CategorySearch />} />
