@@ -84,7 +84,7 @@ return ( <main className="min-h-screen bg-[#F0F7F5] flex justify-center"> <secti
           filteredData.map((item) => (
             <article
               key={item.id}
-              onClick={() => navigate(`/group-buy/${item.id}`)}
+              onClick={() => navigate(`/groupbuy/${item.id}`)}
               className="border-b py-3 cursor-pointer"
             >
               <div className="flex gap-3">

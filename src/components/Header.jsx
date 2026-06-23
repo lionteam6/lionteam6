@@ -5,11 +5,13 @@ import logo from "../assets/logo.png";
 import bell from "../assets/notifications.svg";
 import search from "../assets/search.svg";
 
-import { useAuthStore } from "../store/seAuthStore.Js";
+import { useAuthStore } from "../store/setAuthStore";
 
 import { toast } from "react-toastify";
 
+
 import Modal from "./Modal";
+
 
 const Header = () => {
   const navigate = useNavigate();
